@@ -1,0 +1,2 @@
+# Treat all Go files as Go code
+*.go text eol=lf

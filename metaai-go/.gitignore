@@ -1,0 +1,16 @@
+# Binaries
+bin/
+*.exe
+*.test
+*.prof
+
+# Environments
+.env
+.env.local
+
+# Dependency directories
+vendor/
+
+# Coverage
+*.out
+*.html
