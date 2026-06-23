@@ -53,7 +53,7 @@ type Server struct {
 	token      string
 	addr       string
 	cors       string
-	sameOrigin bool // true when Jenta SPA is embedded → CORS becomes a no-op
+	sameOrigin bool // true when SMART Studio SPA is embedded → CORS becomes a no-op
 	jobs       *jobStore
 	imageHTTP  *http.Client // used by /image/fetch to pull fbcdn URLs server-side
 
@@ -101,10 +101,10 @@ func (s *Server) Handler() http.Handler {
 	mux.HandleFunc("/video/jobs/", s.auth(s.handleVideoJob))
 
 	// SMART Studio SPA: in production (`make build-prod`) the React build is
-	// embedded under jenta/dist and served at "/" same-origin (no CORS). In dev
+	// embedded under smart-studio/dist and served at "/" same-origin (no CORS). In dev
 	// only a dev.txt marker is present, so we fall back to the JSON service index.
-	if jentaHasIndex() {
-		if subFS, err := fs.Sub(metaai.JentaDistFS, "jenta/dist"); err == nil {
+	if smartStudioHasIndex() {
+		if subFS, err := fs.Sub(metaai.SmartStudioDistFS, "smart-studio/dist"); err == nil {
 			mux.Handle("/", http.FileServer(spaFileSystem{fs: http.FS(subFS)}))
 		}
 		// SPA is served same-origin in prod → CORS is unnecessary and noisy.
@@ -118,12 +118,12 @@ func (s *Server) Handler() http.Handler {
 	return s.withCORS(s.logRequest(mux))
 }
 
-// jentaHasIndex reports whether the embedded Jenta build actually contains an
-// index.html (i.e. `make build-jenta` ran). When false we serve the API JSON
+// smartStudioHasIndex reports whether the embedded SMART Studio build actually contains an
+// index.html (i.e. `make build-smart-studio` ran). When false we serve the API JSON
 // index instead, so the dev workflow (Vite at :3000 + this API at :8000) keeps
-// working without a Jenta build.
-func jentaHasIndex() bool {
-	data, err := metaai.JentaDistFS.ReadFile("jenta/dist/index.html")
+// working without a SMART Studio build.
+func smartStudioHasIndex() bool {
+	data, err := metaai.SmartStudioDistFS.ReadFile("smart-studio/dist/index.html")
 	return err == nil && len(data) > 0
 }
 
@@ -233,7 +233,7 @@ func (s *Server) logRequest(next http.Handler) http.Handler {
 }
 
 // withCORS wraps next with permissive CORS for the configured origin. CORS is
-// skipped entirely when s.cors is empty OR s.sameOrigin is set (i.e. the Jenta
+// skipped entirely when s.cors is empty OR s.sameOrigin is set (i.e. the SMART Studio
 // SPA is embedded and served from the same origin, so cross-origin requests
 // never happen). Preflight OPTIONS are answered with 204 and short-circuited.
 func (s *Server) withCORS(next http.Handler) http.Handler {

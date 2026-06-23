@@ -1,6 +1,6 @@
 // services/metaaiClient.ts
 //
-// The ONE network layer between Jenta and the metaai-go REST API. All other
+// The ONE network layer between SMART Studio and the metaai-go REST API. All other
 // service files go through here so HTTP details (base URL, bearer token,
 // multipart vs JSON, base64 conversion) live in exactly one place (DRY).
 //
@@ -64,7 +64,7 @@ export async function uploadFile(file: Blob, fileName = 'upload.png'): Promise<s
 
 /**
  * Fetch a generated image URL via the server-side /image/fetch endpoint and
- * return it in Jenta's base64 ImageFile shape. This avoids the fbcdn CDN's
+ * return it in SMART Studio's base64 ImageFile shape. This avoids the fbcdn CDN's
  * inconsistent browser CORS — the SPA never calls fbcdn directly.
  */
 export async function fetchImageToBase64(
@@ -89,7 +89,7 @@ export function base64ToBlob(b64: string, mime: string): Blob {
   return new Blob([bytes], { type: mime });
 }
 
-/** Map Jenta's aspect ratio to metaai-go's orientation enum. */
+/** Map SMART Studio's aspect ratio to metaai-go's orientation enum. */
 export function orientationFor(aspect: string): 'LANDSCAPE' | 'VERTICAL' | 'SQUARE' {
   if (aspect === '16:9') return 'LANDSCAPE';
   if (aspect === '1:1') return 'SQUARE';

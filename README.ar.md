@@ -20,12 +20,12 @@
 
 ## 🔍 نظرة عامة على المشروع
 
-* **[Jenta](file:///Users/noiemany/Downloads/meta.ai/Jenta)**: واجهة تصميم وتسويق حديثة (React 19) توفر 11 استوديوًا متخصصًا للعلامات التجارية، التصوير الفوتوغرافي، الفيديو، التعليقات الصوتية، الكامباينز، وتحليل السوق.
-* **[metaai-go](file:///Users/noiemany/Downloads/meta.ai/metaai-go)**: خادم API سريع للغاية بلغة Go لـ Meta AI. يستقبل الطلبات من واجهة Jenta ويتواصل مباشرة مع Meta AI باستخدام مصادقة الكوكيز.
+* **[smart-studio](file:///Users/noiemany/Downloads/meta.ai/smart-studio)**: واجهة تصميم وتسويق حديثة (React 19) توفر 11 استوديوًا متخصصًا للعلامات التجارية، التصوير الفوتوغرافي، الفيديو، التعليقات الصوتية، الكامباينز، وتحليل السوق.
+* **[metaai-go](file:///Users/noiemany/Downloads/meta.ai/metaai-go)**: خادم API سريع للغاية بلغة Go لـ Meta AI. يستقبل الطلبات من واجهة SMART Studio ويتواصل مباشرة مع Meta AI باستخدام مصادقة الكوكيز.
 
 > [!NOTE]
 > **تفاصيل التكامل (Integration):**
-> تمر كل مكالمات الذكاء الاصطناعي في Jenta عبر خدمة مركزية (`Jenta/services/geminiService.ts` والتي تقوم بعمل re-export من `aiService.ts`)، وتتصل مباشرة بـ REST API الخاص بـ `metaai-go`.
+> تمر كل مكالمات الذكاء الاصطناعي في SMART Studio عبر خدمة مركزية (`smart-studio/services/geminiService.ts` والتي تقوم بعمل re-export من `aiService.ts`)، وتتصل مباشرة بـ REST API الخاص بـ `metaai-go`.
 
 ---
 
@@ -47,7 +47,7 @@
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│  Browser (Jenta React SPA)                                     │
+│  Browser (SMART Studio React SPA)                              │
 │                                                                │
 │  components/*.tsx ──imports──▶ services/geminiService.ts        │
 │    (11 studios)                   │                            │
@@ -66,7 +66,7 @@
 │  /chat  /analyze  /upload  /image  /image/fetch  /video*       │
 │      rest/handlers.go  rest/analyze_handler.go                 │
 │                                                                │
-│  + embedded Jenta SPA at /  (في prod build)                    │
+│  + embedded SMART Studio SPA at /  (في prod build)             │
 └────────────────────────────────────────┬───────────────────────┘
                                          │ WebSocket + GraphQL
                                          │ (cookies + access token)
@@ -85,7 +85,7 @@
 | الأداة | الإصدار المطلوب | الغرض منها |
 | :--- | :--- | :--- |
 | **Go** | 1.21+ | تشغيل وبناء خادم `metaai-go` الخلفي |
-| **Node.js** | 18+ | تثبيت الحزم وبناء واجهة `Jenta` |
+| **Node.js** | 18+ | تثبيت الحزم وبناء واجهة `smart-studio` |
 | **npm** | 9+ | مدير حزم الواجهة الأمامية وتبعيات Go UI |
 | **حساب Meta AI** | - | حساب مجاني مسجل الدخول على `meta.ai` |
 
@@ -127,8 +127,8 @@ META_AI_REST_TOKEN=smart-studio-dev-token
 META_AI_CORS_ORIGIN=http://localhost:3000
 ```
 
-### إعدادات الواجهة الأمامية (`Jenta/.env`)
-أنشئ ملف `.env` داخل مجلد `Jenta`:
+### إعدادات الواجهة الأمامية (`smart-studio/.env`)
+أنشئ ملف `.env` داخل مجلد `smart-studio`:
 ```env
 VITE_METAAI_URL=http://localhost:8000
 VITE_METAAI_TOKEN=smart-studio-dev-token
@@ -147,7 +147,7 @@ cd metaai-go
 make run-rest
 
 # في نافذة تيرمينال جديدة: تشغيل الواجهة الأمامية على المنفذ :3000
-cd Jenta
+cd smart-studio
 npm install
 npm run dev
 ```
@@ -159,7 +159,7 @@ make run-dev
 ```
 
 ### 2. بناء ملف تنفيذي موحد للإنتاج (Single Binary Production Build)
-يدمج واجهة Jenta وخادم Go API في ملف تنفيذي واحد سريع وجاهز للنشر.
+يدمج واجهة SMART Studio وخادم Go API في ملف تنفيذي واحد سريع وجاهز للنشر.
 ```bash
 cd metaai-go
 make build-prod
@@ -213,7 +213,7 @@ curl -X POST http://localhost:8000/image \
 ```text
 meta.ai-sdk/
 │
-├── 📁 Jenta/                  # الواجهة الأمامية React 19 Web App
+├── 📁 smart-studio/           # الواجهة الأمامية React 19 Web App
 │   ├── 📁 components/         # واجهات الاستوديوهات التسويقية الـ 11
 │   ├── 📁 services/           # خدمات التوجيه ومصادر الـ AI
 │   └── 📄 package.json        # التبعيات وسكربتات التشغيل

@@ -335,6 +335,6 @@ the API directly.
   `Access-Control-Allow-Methods: GET, POST, OPTIONS`.
 * Set `META_AI_CORS_ORIGIN=` (empty) to **disable** CORS — recommended for
   production, where the SPA is served same-origin from this server (see the
-  `make build-jenta` target, which bundles the Jenta React app into
-  `jenta/dist`).
+  `make build-smart-studio` target, which bundles the SMART Studio React app into
+  `smart-studio/dist`).
 

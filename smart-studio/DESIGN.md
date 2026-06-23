@@ -1,12 +1,12 @@
-# Jenta Design Tool - Design System & Patterns
+# SMART Studio - Design System & Patterns
 
-This document outlines the core design principles, CSS patterns, and visual identity of the Jenta Design Tool. It serves as a reference for maintaining a consistent aesthetic across the application.
+This document outlines the core design principles, CSS patterns, and visual identity of SMART Studio. It serves as a reference for maintaining a consistent aesthetic across the application.
 
 ## 1. Visual Theme & Atmosphere
 
 **Core Aesthetic:** Futuristic, AI-Powered, Glassmorphism, and Immersive.
 
-The Jenta Design Tool utilizes a highly modern, sleek interface characterized by:
+SMART Studio utilizes a highly modern, sleek interface characterized by:
 - **Glassmorphism:** Extensive use of translucent backgrounds with background-blur to create depth without visual clutter.
 - **Dynamic Lighting:** Radial gradients and slow-pulsing background glows (`glowPulse`) that simulate a "breathing" AI environment.
 - **Fluid Motion:** Elements that float (`animate-float`) and interact with user input (e.g., the mouse-tracking 3D logo).

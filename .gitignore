@@ -53,5 +53,5 @@ bin/
 *.dylib
 *.test
 *.out
-metaai-go/jenta/dist/
+metaai-go/smart-studio/dist/
 metaai-go/ui/dist/

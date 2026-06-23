@@ -1,6 +1,6 @@
 // services/geminiServiceTts.ts
 //
-// The ONLY part of Jenta that still calls Google Gemini directly. Meta AI has
+// The ONLY part of SMART Studio that still calls Google Gemini directly. Meta AI has
 // no text-to-speech endpoint, so generateSpeech stays here (hybrid approach).
 // All other AI moved to ./aiService (via the metaai-go REST API).
 //

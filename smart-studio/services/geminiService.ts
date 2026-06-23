@@ -1,6 +1,6 @@
 // services/geminiService.ts
 //
-// BACKEND SHIM — Jenta's AI now runs through the metaai-go REST API (Meta AI).
+// BACKEND SHIM — SMART Studio's AI now runs through the metaai-go REST API (Meta AI).
 // This file re-exports the new implementation (./aiService) so the 11
 // components that `import { ... } from '../services/geminiService'` keep working
 // unchanged.

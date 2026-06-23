@@ -389,10 +389,10 @@ func TestUnknownPath404(t *testing.T) {
 	defer ts.Close()
 	resp := doJSON(t, ts, "GET", "/bogus", nil)
 	defer resp.Body.Close()
-	// When the Jenta SPA is embedded (prod build), deep links fall back to
+	// When the SMART Studio SPA is embedded (prod build), deep links fall back to
 	// index.html (200) — that's correct SPA behaviour, not an error. When only
 	// the dev marker is present, unknown paths return 404 via the JSON index.
-	if jentaHasIndex() {
+	if smartStudioHasIndex() {
 		if resp.StatusCode != http.StatusOK {
 			t.Errorf("with embedded SPA, /bogus status=%d want 200 (deep-link fallback)", resp.StatusCode)
 		}
@@ -522,8 +522,8 @@ func TestUIEmbedRouteRemoved(t *testing.T) {
 // in prod the SPA is embedded same-origin and CORS is a no-op, so skip when
 // the SPA is embedded in this build.
 func TestCORSPreflight(t *testing.T) {
-	if jentaHasIndex() {
-		t.Skip("Jenta SPA is embedded (same-origin prod build) — CORS is a no-op; skipped")
+	if smartStudioHasIndex() {
+		t.Skip("SMART Studio SPA is embedded (same-origin prod build) — CORS is a no-op; skipped")
 	}
 	s := newTestServer(&fakeClient{}, "")
 	s.cors = "http://localhost:3000"
@@ -563,11 +563,11 @@ func TestCORSPreflight(t *testing.T) {
 	}
 }
 
-// TestCORSDisabledInProd verifies the prod behaviour: when the Jenta SPA is
+// TestCORSDisabledInProd verifies the prod behaviour: when the SMART Studio SPA is
 // embedded (same-origin), CORS headers are NOT attached, even if s.cors is set.
 func TestCORSDisabledInProd(t *testing.T) {
-	if !jentaHasIndex() {
-		t.Skip("Jenta SPA not embedded — prod CORS behaviour is N/A")
+	if !smartStudioHasIndex() {
+		t.Skip("SMART Studio SPA not embedded — prod CORS behaviour is N/A")
 	}
 	s := newTestServer(&fakeClient{}, "")
 	s.cors = "http://localhost:3000" // should be ignored

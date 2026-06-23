@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
       },
       plugins: [react()],
-      // Jenta now calls metaai-go (Meta AI) via import.meta.env.VITE_METAAI_*.
+      // SMART Studio now calls metaai-go (Meta AI) via import.meta.env.VITE_METAAI_*.
       // The only remaining Gemini dependency is TTS (no Meta equivalent); it
       // reads VITE_TTS_API_KEY first and falls back to the legacy define below.
       define: {

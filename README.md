@@ -20,12 +20,12 @@ A modern, feature-rich web application combining a React 19 design tool (featuri
 
 ## 🔍 Project Overview
 
-* **[Jenta](file:///Users/noiemany/Downloads/meta.ai/Jenta)**: A modern marketing and design interface (React 19) offering 11 specialized studios for branding, photography, video, voiceovers, campaigns, and market analysis.
-* **[metaai-go](file:///Users/noiemany/Downloads/meta.ai/metaai-go)**: A high-performance Go API wrapper for Meta AI. It intercepts requests from Jenta and interacts directly with Meta AI using cookie authentication.
+* **[smart-studio](file:///Users/noiemany/Downloads/meta.ai/smart-studio)**: A modern marketing and design interface (React 19) offering 11 specialized studios for branding, photography, video, voiceovers, campaigns, and market analysis.
+* **[metaai-go](file:///Users/noiemany/Downloads/meta.ai/metaai-go)**: A high-performance Go API wrapper for Meta AI. It intercepts requests from SMART Studio and interacts directly with Meta AI using cookie authentication.
 
 > [!NOTE]
 > **Integration Details:**
-> Every AI call in Jenta routes through a central service (`Jenta/services/geminiService.ts` which re-exports from `aiService.ts`), communicating directly with the `metaai-go` REST API.
+> Every AI call in SMART Studio routes through a central service (`smart-studio/services/geminiService.ts` which re-exports from `aiService.ts`), communicating directly with the `metaai-go` REST API.
 
 ---
 
@@ -47,7 +47,7 @@ A modern, feature-rich web application combining a React 19 design tool (featuri
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│  Browser (Jenta React SPA)                                     │
+│  Browser (SMART Studio React SPA)                              │
 │                                                                │
 │  components/*.tsx ──imports──▶ services/geminiService.ts        │
 │    (11 studios)                   │                            │
@@ -66,7 +66,7 @@ A modern, feature-rich web application combining a React 19 design tool (featuri
 │  /chat  /analyze  /upload  /image  /image/fetch  /video*       │
 │      rest/handlers.go  rest/analyze_handler.go                 │
 │                                                                │
-│  + embedded Jenta SPA at /  (in prod build)                    │
+│  + embedded SMART Studio SPA at /  (in prod build)             │
 └────────────────────────────────────────┬───────────────────────┘
                                          │ WebSocket + GraphQL
                                          │ (cookies + access token)
@@ -85,8 +85,8 @@ A modern, feature-rich web application combining a React 19 design tool (featuri
 | Tool | Version | Purpose |
 | :--- | :--- | :--- |
 | **Go** | 1.21+ | Run and compile the `metaai-go` backend |
-| **Node.js** | 18+ | Package installation and building for `Jenta` |
-| **npm** | 9+ | Package manager for `Jenta` and Go UI dependencies |
+| **Node.js** | 18+ | Package installation and building for `smart-studio` |
+| **npm** | 9+ | Package manager for `smart-studio` and Go UI dependencies |
 | **Meta AI Account** | - | Free logged-in account at `meta.ai` |
 
 ---
@@ -127,8 +127,8 @@ META_AI_REST_TOKEN=smart-studio-dev-token
 META_AI_CORS_ORIGIN=http://localhost:3000
 ```
 
-### Frontend Configuration (`Jenta/.env`)
-Create a `.env` file inside the `Jenta` directory:
+### Frontend Configuration (`smart-studio/.env`)
+Create a `.env` file inside the `smart-studio` directory:
 ```env
 VITE_METAAI_URL=http://localhost:8000
 VITE_METAAI_TOKEN=smart-studio-dev-token
@@ -147,7 +147,7 @@ cd metaai-go
 make run-rest
 
 # In a new terminal: Start frontend on :3000
-cd Jenta
+cd smart-studio
 npm install
 npm run dev
 ```
@@ -159,7 +159,7 @@ make run-dev
 ```
 
 ### 2. Single Binary Production Build
-Combines Jenta frontend and Go backend into a single executable binary.
+Combines SMART Studio frontend and Go backend into a single executable binary.
 ```bash
 cd metaai-go
 make build-prod
@@ -213,7 +213,7 @@ curl -X POST http://localhost:8000/image \
 ```text
 meta.ai-sdk/
 │
-├── 📁 Jenta/                  # React 19 Frontend Web App
+├── 📁 smart-studio/           # React 19 Frontend Web App
 │   ├── 📁 components/         # 11 Marketing Studios UI
 │   ├── 📁 services/           # AI Client and routing services
 │   └── 📄 package.json        # Dependencies & Scripts
